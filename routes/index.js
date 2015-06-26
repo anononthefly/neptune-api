@@ -4,8 +4,8 @@ var request = require('sync-request');
 
 indexData={};
 obsWindow=[1,2,4,7,10,15,30];
-var typeNameArray = ["question", "bug", "feature request", "other"];
-var stateNameArray = ["resolved", "triaged", "in progress", "other"];
+var typeNameArray = ["Question", "Bug", "Enhancement", "other"];
+var stateNameArray = ["Workflow", "in progress", "needsVotes", "other"];
 
 router.get('/', function(req, res, next) {
   try {
@@ -90,7 +90,7 @@ function open (issue_array) {
     var daysPast = daysFromCurrent(issue_array[i].created_at);
     if (indexData.days < daysPast && daysPast < indexData.daysEnd) {
       indexData.numberOfIssues++;
-      if(indexData.repo=="github/markup"){
+      if(indexData.repo=="ZenHubIO/support"){
         if (issue_array[i].labels.length===0){
           type=mapped("");
           status=mapped("");
@@ -190,14 +190,14 @@ function dateDiff(dateString_open,dateString_close){
 
 function mapped(theString) {
   switch (theString) {
-    case "question":
-    case "resolved":
+    case "Question":
+    case "needsVotes":
       return 0;
-    case "bug":
-    case "triaged":
-      return 1;
-    case "feature request":
+    case "Bug":
     case "in progress":
+      return 1;
+    case "Enhancement":
+    case "needsVotes":
       return 2;
     default:
       return 3;
