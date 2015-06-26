@@ -12,12 +12,8 @@ dependencies:
     - mkdir -p ./anononthefly/testresults
     - mkdir -p ./anononthefly/codecoverage
   override:
-    - grunt
     - docker info
-    - docker build -t anononthefly/neptune-fe .
-  post:
-    - ./node_modules/.bin/istanbul cover grunt -- -u tdd
-    - ./node_modules/.bin/istanbul report cobertura --dir  ./anononthefly/codecoverage/
+    - docker build -t anononthefly/neptune-api .
 
 deployment:
   hub:
