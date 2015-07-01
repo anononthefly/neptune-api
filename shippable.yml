@@ -2,9 +2,7 @@ language: node_js
 
 node_js:
   - 0.10.33
-rvm:
-  - 2.0.0
-  
+
 env:
   global:
     - APP_NAME=arctic-canoe-5436
