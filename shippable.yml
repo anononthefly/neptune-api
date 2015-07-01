@@ -2,6 +2,8 @@ language: node_js
 
 node_js:
   - 0.10.33
+rvm:
+  - 2.0.0
   
 env:
   global:
@@ -10,12 +12,16 @@ env:
     - secure: nEO2dAtqhLII2SLPlSpxNv7GbjXa0I7qH9kWYFbfQtbGtR3LFC6Bo/w64AtaOugSJl5RGv8MOrs4Uy3qb0+YNmFo3KZAbgWIv3AV33MjKnnbk+2UQE3COfobfMmcSiDsWWRHKpxzbNrMl0iHcdqzq72c5Y0lOMcnQeQlhhNEFPql7HRR3N9gmoQhMnP9g+Gm90gIep1u1wihSoT2Jc1xPqpkfibiOH4iZREiFWaCQPx2nARbWjD2iFugPsr6UFUkRPnus1bldhCXfanHuYmccULPBUUTknw8FNPtwyDFWn0M9cGOjk+9pSpHOH+w0NFP2QcsFZUV27lWB9k0cJZPIA==
     
 before_install:
+  - source ~/.rvm/scripts/rvm
+  - rvm install $SHIPPABLE_RUBY --verify-downloads 1
+  - source ~/.bashrc && ~/.rvm/scripts/rvm && rvm use $SHIPPABLE_RUBY
   - which heroku || wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
   - npm install -g grunt-cli
   - mkdir -p ./shippable/testresults
   - mkdir -p ./shippable/codecoverage
 
 install:
+    - ruby -v
     - npm install
 
 script:
