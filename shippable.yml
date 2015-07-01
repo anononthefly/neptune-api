@@ -12,6 +12,7 @@ env:
     - secure: nEO2dAtqhLII2SLPlSpxNv7GbjXa0I7qH9kWYFbfQtbGtR3LFC6Bo/w64AtaOugSJl5RGv8MOrs4Uy3qb0+YNmFo3KZAbgWIv3AV33MjKnnbk+2UQE3COfobfMmcSiDsWWRHKpxzbNrMl0iHcdqzq72c5Y0lOMcnQeQlhhNEFPql7HRR3N9gmoQhMnP9g+Gm90gIep1u1wihSoT2Jc1xPqpkfibiOH4iZREiFWaCQPx2nARbWjD2iFugPsr6UFUkRPnus1bldhCXfanHuYmccULPBUUTknw8FNPtwyDFWn0M9cGOjk+9pSpHOH+w0NFP2QcsFZUV27lWB9k0cJZPIA==
     
 before_install:
+  - echo rvm_autoupdate_flag=2 >> ~/.rvmrc
   - source ~/.rvm/scripts/rvm
   - rvm install $SHIPPABLE_RUBY --verify-downloads 1
   - source ~/.bashrc && ~/.rvm/scripts/rvm && rvm use $SHIPPABLE_RUBY
