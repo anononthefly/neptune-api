@@ -14,8 +14,10 @@ env:
 before_install:
   - yes | apt-get update
   - yes | apt-get install ruby1.9.3
+  - yes | apt-get install wget
   - source ~/.nvm/nvm.sh && nvm install $SHIPPABLE_NODE_VERSION
   - node --version
+  - which wget
   - which heroku || wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
   - npm install -g grunt-cli
   - mkdir -p ./shippable/testresults
