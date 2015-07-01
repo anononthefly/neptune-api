@@ -7,8 +7,11 @@ env:
   global:
     - APP_NAME=arctic-canoe-5436
     - XUNIT_FILE=./shippable/testresults/result.xml
+    - secure: nEO2dAtqhLII2SLPlSpxNv7GbjXa0I7qH9kWYFbfQtbGtR3LFC6Bo/w64AtaOugSJl5RGv8MOrs4Uy3qb0+YNmFo3KZAbgWIv3AV33MjKnnbk+2UQE3COfobfMmcSiDsWWRHKpxzbNrMl0iHcdqzq72c5Y0lOMcnQeQlhhNEFPql7HRR3N9gmoQhMnP9g+Gm90gIep1u1wihSoT2Jc1xPqpkfibiOH4iZREiFWaCQPx2nARbWjD2iFugPsr6UFUkRPnus1bldhCXfanHuYmccULPBUUTknw8FNPtwyDFWn0M9cGOjk+9pSpHOH+w0NFP2QcsFZUV27lWB9k0cJZPIA==
     
 before_install:
+  - ruby -v
+  - which heroku || wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
   - npm install -g grunt-cli
   - mkdir -p ./shippable/testresults
   - mkdir -p ./shippable/codecoverage
@@ -22,4 +25,8 @@ script:
 after_success:
     - ./node_modules/.bin/istanbul cover grunt -- -u tdd
     - ./node_modules/.bin/istanbul report cobertura --dir  ./shippable/codecoverage/
-    - git push -f git@heroku.com:$APP_NAME.git master
+    - ruby -v
+    - test -f ~/.ssh/id_rsa.heroku || ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.heroku && heroku keys:add ~/.ssh/id_rsa.heroku
+    - git remote -v | grep ^heroku || heroku git:remote --ssh-git --app $APP_NAME
+    - git push -f heroku master
+
