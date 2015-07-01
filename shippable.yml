@@ -13,6 +13,7 @@ env:
 
 before_install:
   - ruby -v
+  - which heroku
   - which heroku || wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
   - sudo apt-get install ruby1.9.3
 
